@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mOfertas"
+            android:icon="@drawable/ic_tags1"
+            android:title="Ofertas" />
+        <item
+            android:id="@+id/mServicios"
+            android:icon="@drawable/ic_category"
+            android:title="Servicios" />
+    </group>
+    <item android:title="More...">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/mPerfil"
+                    android:icon="@drawable/ic_person"
+                    android:title="Perfil" />
+                <item
+                    android:id="@+id/mInformacion"
+                    android:icon="@drawable/ic_info"
+                    android:title="Informacion" />
+                <item
+                    android:id="@+id/mCerrarSesion"
+                    android:icon="@drawable/ic_cerrar_sesion"
+                    android:title="Cerrar Sesion" />
+                <item
+                    android:id="@+id/mRegistro"
+                    android:icon="@drawable/ic_person"
+                    android:title="Registrate" />
+                <item
+                    android:id="@+id/mLogin"
+                    android:icon="@drawable/ic_info"
+                    android:title="Iniciar Sesión" />
+            </group>
+        </menu>
+    </item>
+</menu>

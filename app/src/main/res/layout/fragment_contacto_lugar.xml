@@ -1,0 +1,28 @@
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        tools:context="com.jolver.nestor.marcaideas.Fragments.ContactoLugarFragment">
+
+        <ImageView
+            android:id="@+id/iv_llamarempresa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_phone"
+            android:background="@drawable/gradient"
+            android:padding="10dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/tv_llamarempresa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numero Telefonico"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</ScrollView>

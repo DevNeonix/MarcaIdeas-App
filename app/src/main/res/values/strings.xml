@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MarcaIdeas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_location">Mapa</string>
+    <string name="category_contacto">Contacto</string>
+    <string name="category_informacion">Informacion</string>
+    <string name="google_maps_key">AIzaSyAyIzmSu6J5FjJpU0krFPc9D-0FlQNwibs</string>
+</resources>

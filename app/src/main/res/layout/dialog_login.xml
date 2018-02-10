@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/lllogin"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/dl_iLogo"
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/logo" />
+
+                <EditText
+                    android:layout_gravity="center"
+                    android:id="@+id/dl_etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="80dp"
+                    android:background="#DBB8EA"
+                    android:drawableLeft="@drawable/ic_action_user"
+                    android:ems="10"
+                    android:hint="Usuario"
+                    android:textColorHint="#333"
+                    android:inputType="textEmailAddress"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:layout_gravity="center"
+                    android:id="@+id/dl_etPassword"
+                    android:textColorHint="#333"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_below="@+id/etUsername"
+                    android:layout_marginTop="28dp"
+                    android:background="#DBB8EA"
+                    android:drawableLeft="@drawable/ic_action_pass"
+                    android:ems="10"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="20dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/dl_btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="30dp"
+                    app:cardBackgroundColor="#672682"
+                    app:cardCornerRadius="25dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/etLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Iniciar Sesión"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>
