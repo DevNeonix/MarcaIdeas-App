@@ -48,11 +48,11 @@ class ContactoLugarFragment : Fragment() {
         var numero = preferences!!.getString("lugar_telefono", "")
         iv_llamarempresa = viewRoot!!.findViewById(R.id.iv_llamarempresa)
         tv_llamarempresa = viewRoot!!.findViewById(R.id.tv_llamarempresa)
-        tv_llamarempresa!!.text=numero
+        tv_llamarempresa!!.text = numero
 
+        iv_llamarempresa!!.setOnClickListener {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            iv_llamarempresa!!.setOnClickListener {
                 Dexter.withActivity(activity).withPermission(android.Manifest.permission.CALL_PHONE).withListener(
                         object : PermissionListener {
                             override fun onPermissionGranted(response: PermissionGrantedResponse?) {
@@ -78,15 +78,16 @@ class ContactoLugarFragment : Fragment() {
 
                         }
                 ).check()
-            }
-            context.toast("asdasdsad1")
-        }else{
-            context.toast("asdasdsad2")
-            var numero = preferences!!.getString("lugar_telefono", "")
-            val callIntent = Intent(Intent.ACTION_CALL)
-            callIntent.data = Uri.parse("tel:" + numero)
-            if (!numero.equals("")) {
-                startActivity(callIntent)
+
+                context.toast("asdasdsad1")
+            } else {
+                context.toast("asdasdsad2")
+                var numero = preferences!!.getString("lugar_telefono", "")
+                val callIntent = Intent(Intent.ACTION_CALL)
+                callIntent.data = Uri.parse("tel:" + numero)
+                if (!numero.equals("")) {
+                    startActivity(callIntent)
+                }
             }
         }
     }

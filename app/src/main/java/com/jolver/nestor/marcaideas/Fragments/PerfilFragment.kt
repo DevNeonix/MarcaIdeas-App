@@ -14,12 +14,20 @@ import com.jolver.nestor.marcaideas.R
  * A simple [Fragment] subclass.
  */
 class PerfilFragment : Fragment() {
+    lateinit var viewRoot:View
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_perfil, container, false)
+        viewRoot=inflater!!.inflate(R.layout.fragment_perfil, container, false)
+        return viewRoot
     }
 
-}// Required empty public constructor
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+    }
+
+}

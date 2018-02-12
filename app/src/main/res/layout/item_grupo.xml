@@ -7,22 +7,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#fafafa"
     android:elevation="4dp">
 
     <LinearLayout
+        android:background="@android:color/transparent"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:background="#333"
             android:id="@+id/ig_iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
 
         <TextView
             android:id="@+id/ig_tv"
-            android:background="#333"
-            android:textColor="#fff"
+            android:textColor="#333"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

@@ -16,6 +16,12 @@ import com.jolver.nestor.marcaideas.Models.Grupo
 import com.jolver.nestor.marcaideas.R
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import com.jolver.nestor.marcaideas.R.id.imageView
+import android.R.attr.radius
+import android.R.attr.path
+import android.graphics.Typeface
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+
 
 /**
  * Created by root on 30/01/18.
@@ -50,10 +56,14 @@ class GrupoAdapter(//obtengo el layout q voy a usar
             view = convertView
             vh = view.tag as ListRowHolder
         }
-
+        var tf:Typeface=Typeface.createFromAsset(context.assets,"fonts/kavivanar.ttf")
         var grupo_item=listado[i]
         vh.tvnombre!!.text = grupo_item.nombre
-        Picasso.with(context).load(grupo_item.image_url).into(vh.img)
+        vh.tvnombre!!.typeface=tf
+
+
+        Picasso.with(context).load(grupo_item.image_url).transform(RoundedCornersTransformation(10, 10)).into(vh.img)
+
 
         vh.cd!!.setOnClickListener { myonClick.click(grupo_item.id.toString() + "") }
 
