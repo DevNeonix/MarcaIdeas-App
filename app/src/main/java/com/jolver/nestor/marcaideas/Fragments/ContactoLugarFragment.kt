@@ -79,9 +79,7 @@ class ContactoLugarFragment : Fragment() {
                         }
                 ).check()
 
-                context.toast("asdasdsad1")
             } else {
-                context.toast("asdasdsad2")
                 var numero = preferences!!.getString("lugar_telefono", "")
                 val callIntent = Intent(Intent.ACTION_CALL)
                 callIntent.data = Uri.parse("tel:" + numero)

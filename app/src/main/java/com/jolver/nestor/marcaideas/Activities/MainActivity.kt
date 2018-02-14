@@ -311,4 +311,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                 }).check()
     }
+
+    private var backPressedTime: Long = 0    // used by onBackPressed()
+
+    override fun onBackPressed() {
+        val t = System.currentTimeMillis()
+        if (t - backPressedTime > 2000) {    // 2 secs
+            backPressedTime = t
+            toast("Presiona atráz otra vez para salir de la app")
+        } else {    // this guy is serious
+            // clean up
+            super.onBackPressed()       // bye
+        }
+    }
 }
