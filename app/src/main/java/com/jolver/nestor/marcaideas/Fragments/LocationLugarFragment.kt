@@ -1,6 +1,8 @@
 package com.jolver.nestor.marcaideas.Fragments
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.location.Address
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -38,11 +40,15 @@ class LocationLugarFragment : Fragment() {
 
     var mMapView: MapView? = null
     var googleMap: GoogleMap? = null
-
+    var preferences:SharedPreferences?=null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         rootView = inflater!!.inflate(R.layout.fragment_location_lugar, container, false)
+
+        preferences=context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE)
+
+
 
         mMapView = rootView!!.findViewById(R.id.mapView)
         mMapView!!.onCreate(savedInstanceState)
@@ -59,11 +65,13 @@ class LocationLugarFragment : Fragment() {
         mMapView!!.getMapAsync(OnMapReadyCallback { mMap ->
             googleMap = mMap
 
-            // For dropping a marker at a point on the Map
-            val sydney = LatLng(-34.0, 151.0)
-            googleMap!!.addMarker(MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"))
+            var lat=preferences!!.getString("lugar_lat","")
+            var lon=preferences!!.getString("lugar_lon","")
 
-            // For zooming automatically to the location of the marker
+            val sydney = LatLng(lat.toDouble(), lon.toDouble())
+            googleMap!!.addMarker(MarkerOptions().position(sydney).title(preferences!!.getString("lugar_razon_social","")))
+
+
             val cameraPosition = CameraPosition.Builder().target(sydney).zoom(12f).build()
             googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         })

@@ -16,6 +16,7 @@
         android:background="@drawable/gradient"/>
 
     <ImageView
+        android:id="@+id/adl_iv"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/gradient"></ImageView>
