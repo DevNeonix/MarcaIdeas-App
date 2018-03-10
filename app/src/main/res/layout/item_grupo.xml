@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/ig_iv"
+            android:id="@+id/ig_iv_grupo"
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
 

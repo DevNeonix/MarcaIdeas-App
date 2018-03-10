@@ -20,6 +20,7 @@ import com.jolver.nestor.marcaideas.R.id.imageView
 import android.R.attr.radius
 import android.R.attr.path
 import android.graphics.Typeface
+import android.widget.LinearLayout
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
 
@@ -62,7 +63,13 @@ class GrupoAdapter(//obtengo el layout q voy a usar
         vh.tvnombre!!.typeface=tf
 
 
-        Picasso.with(context).load(grupo_item.image_url).transform(RoundedCornersTransformation(10, 10)).into(vh.img)
+        Picasso.with(context)
+                .load(grupo_item.image_url)
+                .transform(RoundedCornersTransformation(5, 5))
+                .resize(150, 150)
+                .centerCrop()
+                .placeholder(R.drawable.logo)
+                .into(vh.img)
 
 
         vh.cd!!.setOnClickListener { myonClick.click(grupo_item.id.toString() + "") }
@@ -91,6 +98,6 @@ private class ListRowHolder(row: View?) {
     init {
         this.tvnombre = row?.findViewById(R.id.ig_tv)
         this.cd = row?.findViewById(R.id.ig_cdv)
-        this.img = row?.findViewById(R.id.ig_iv)
+        this.img = row?.findViewById(R.id.ig_iv_grupo)
     }
 }

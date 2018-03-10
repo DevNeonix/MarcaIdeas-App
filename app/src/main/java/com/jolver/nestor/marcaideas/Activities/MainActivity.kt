@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -17,6 +18,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.akhgupta.easylocation.EasyLocationAppCompatActivity
+import com.akhgupta.easylocation.EasyLocationRequest
+import com.akhgupta.easylocation.EasyLocationRequestBuilder
+import com.google.android.gms.location.LocationRequest
 import com.jolver.nestor.marcaideas.Fragments.OfertasFragment
 import com.jolver.nestor.marcaideas.Fragments.PerfilFragment
 import com.jolver.nestor.marcaideas.Fragments.ServiciosFragment
@@ -43,7 +48,29 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun onLocationProviderDisabled() {
+
+    }
+
+    override fun onLocationPermissionGranted() {
+
+    }
+
+    override fun onLocationProviderEnabled() {
+
+    }
+
+    override fun onLocationPermissionDenied() {
+
+    }
+
+    override fun onLocationReceived(location: Location?) {
+        var editor=getSharedPreferences("marcaideas", Context.MODE_PRIVATE).edit();
+        editor.putString("lat",location!!.latitude.toString())
+        editor.putString("lon",location!!.longitude.toString())
+        editor.apply()
+    }
 
 
     var toolbar: Toolbar? = null
@@ -55,6 +82,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding()
         CambiarMenu()
         checkPermission()
+
+
+        var locationRequest: LocationRequest = LocationRequest()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(5000)
+                .setFastestInterval(5000)
+
+        var easyLocationRequest: EasyLocationRequest = EasyLocationRequestBuilder()
+                .setLocationRequest(locationRequest)
+                .setFallBackToLastLocationTime(3000)
+                .build()
+        requestLocationUpdates(easyLocationRequest);
+
+
     }
 
     private fun binding() {
@@ -64,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView = findViewById(R.id.navView)
 
         mDrawer!!.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL)
-        mDrawer!!.setOnDrawerStateChangeListener(object:ElasticDrawer.OnDrawerStateChangeListener{
+        mDrawer!!.setOnDrawerStateChangeListener(object : ElasticDrawer.OnDrawerStateChangeListener {
             override fun onDrawerStateChange(oldState: Int, newState: Int) {
                 CambiarMenu()
             }
@@ -87,8 +128,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home->{
+        when (item.itemId) {
+            android.R.id.home -> {
                 mDrawer!!.openMenu()
             }
         }
@@ -100,30 +141,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragment: Fragment? = null
         when (item.itemId) {
             R.id.mOfertas -> {
-                fragmentTransaction=true
-                fragment=OfertasFragment()
+                fragmentTransaction = true
+                fragment = OfertasFragment()
             }
-            R.id.mPerfil->{
-                fragmentTransaction=true
-                fragment=PerfilFragment()
+            R.id.mPerfil -> {
+                fragmentTransaction = true
+                fragment = PerfilFragment()
             }
             R.id.mServicios -> {
-                fragmentTransaction=true
-                fragment=ServiciosFragment()
+                fragmentTransaction = true
+                fragment = ServiciosFragment()
             }
-            R.id.mRegistro->{
-                val dialog_registro = CreateCustomDialog(this@MainActivity,R.layout.dialog_registro)
+            R.id.mRegistro -> {
+                val dialog_registro = CreateCustomDialog(this@MainActivity, R.layout.dialog_registro)
 
-                val llregistro:LinearLayout = dialog_registro.findViewById(R.id.llregistro)
+                val llregistro: LinearLayout = dialog_registro.findViewById(R.id.llregistro)
                 llregistro.layoutParams.width = findViewById<LinearLayout>(R.id.content).width - 50
                 llregistro.requestLayout()
                 dialog_registro.show()
 
 
-                val input_name:EditText = dialog_registro.findViewById(R.id.dr_input_name)
-                val input_email:EditText = dialog_registro.findViewById(R.id.dr_input_email)
-                val input_password:EditText = dialog_registro.findViewById(R.id.dr_input_password)
-                val btn_signup:Button = dialog_registro.findViewById(R.id.dr_btn_signup)
+                val input_name: EditText = dialog_registro.findViewById(R.id.dr_input_name)
+                val input_email: EditText = dialog_registro.findViewById(R.id.dr_input_email)
+                val input_password: EditText = dialog_registro.findViewById(R.id.dr_input_password)
+                val btn_signup: Button = dialog_registro.findViewById(R.id.dr_btn_signup)
 
                 val myRetrofit = myRetrofit
                 val myService = myRetrofit.create(RegisterUser::class.java)
@@ -151,9 +192,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 })
             }
 
-            R.id.mCerrarSesion->{
+            R.id.mCerrarSesion -> {
                 val preferences = getSharedPreferences("marcaideas", Context.MODE_PRIVATE)
-                val editor:SharedPreferences.Editor = preferences.edit()
+                val editor: SharedPreferences.Editor = preferences.edit()
                 editor.putString("id", "")
                 editor.putString("fullname", "")
                 editor.putString("email", "")
@@ -164,8 +205,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 CambiarMenu()
                 setFragmentByDefault()
             }
-            R.id.mLogin->{
-                var dialog: Dialog =CreateCustomDialog(this@MainActivity,R.layout.dialog_login)
+            R.id.mLogin -> {
+                var dialog: Dialog = CreateCustomDialog(this@MainActivity, R.layout.dialog_login)
 
                 bindingDialogLogin(dialog)
 
@@ -182,14 +223,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun bindingDialogLogin(dialog_login: Dialog) {
 
-        val ll:LinearLayout = dialog_login.findViewById(R.id.lllogin)
+        val ll: LinearLayout = dialog_login.findViewById(R.id.lllogin)
         ll.layoutParams.width = findViewById<LinearLayout>(R.id.content).width - 50
         ll.requestLayout()
         dialog_login.show()
 
         dialog_login.findViewById<CardView>(R.id.dl_btnLogin).setOnClickListener(View.OnClickListener {
-            val etUsername:EditText = dialog_login.findViewById(R.id.dl_etUsername)
-            val etPassword:EditText = dialog_login.findViewById(R.id.dl_etPassword)
+            val etUsername: EditText = dialog_login.findViewById(R.id.dl_etUsername)
+            val etPassword: EditText = dialog_login.findViewById(R.id.dl_etPassword)
             val preferences = getSharedPreferences("marcaideas", Context.MODE_PRIVATE)
 
             val myRetrofit = myRetrofit
@@ -200,7 +241,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                     val status = response.code()
                     if (status == 200) {
-                        val data:User = response.body()!!
+                        val data: User = response.body()!!
                         Toast.makeText(applicationContext, "Bienvenido " + data.fullname, Toast.LENGTH_SHORT).show()
                         val editor = preferences.edit()
                         editor.putString("id", data.id.toString())
@@ -262,54 +303,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onResume()
         CambiarMenu()
     }
-    private fun checkPermission(){
+
+    private fun checkPermission() {
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.CALL_PHONE
-                ).withListener(object:MultiplePermissionsListener{
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                        report?.let {
-                            for(permission in report.grantedPermissionResponses){
-                                when(permission.permissionName){
-                                    Manifest.permission.READ_EXTERNAL_STORAGE->{}
-                                    Manifest.permission.ACCESS_FINE_LOCATION->{}
-                                    Manifest.permission.CALL_PHONE->{}
+                ).withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                report?.let {
+                    for (permission in report.grantedPermissionResponses) {
+                        when (permission.permissionName) {
+                            Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                            }
+                            Manifest.permission.ACCESS_FINE_LOCATION -> {
+                            }
+                            Manifest.permission.CALL_PHONE -> {
+                            }
+                        }
+                    }
+                    for (permission in report.deniedPermissionResponses) {
+                        when (permission.permissionName) {
+                            Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                                if (permission.isPermanentlyDenied) {
+                                    toast("Se denego el acceso")
+                                } else {
+                                    toast("Se denego el acceso")
                                 }
                             }
-                            for(permission in report.deniedPermissionResponses){
-                                when(permission.permissionName){
-                                    Manifest.permission.READ_EXTERNAL_STORAGE->{
-                                        if(permission.isPermanentlyDenied){
-                                            toast("Se denego el acceso")
-                                        }else{
-                                            toast("Se denego el acceso")
-                                        }
-                                    }
-                                    Manifest.permission.ACCESS_FINE_LOCATION->{
-                                        if(permission.isPermanentlyDenied){
-                                            toast("Se denego el acceso")
-                                        }else{
-                                            toast("Se denego el acceso")
-                                        }
-                                    }
-                                    Manifest.permission.CALL_PHONE->{
-                                        if(permission.isPermanentlyDenied){
-                                            toast("Se denego el acceso")
-                                        }else{
-                                            toast("Se denego el acceso")
-                                        }
-                                    }
+                            Manifest.permission.ACCESS_FINE_LOCATION -> {
+                                if (permission.isPermanentlyDenied) {
+                                    toast("Se denego el acceso")
+                                } else {
+                                    toast("Se denego el acceso")
+                                }
+                            }
+                            Manifest.permission.CALL_PHONE -> {
+                                if (permission.isPermanentlyDenied) {
+                                    toast("Se denego el acceso")
+                                } else {
+                                    toast("Se denego el acceso")
                                 }
                             }
                         }
                     }
+                }
+            }
 
-                    override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
-                        token?.continuePermissionRequest()
-                    }
-                }).check()
+            override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
+                token?.continuePermissionRequest()
+            }
+        }).check()
     }
 
     private var backPressedTime: Long = 0    // used by onBackPressed()
