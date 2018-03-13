@@ -54,7 +54,7 @@
                     android:drawableRight="@drawable/ic_map"
                     android:gravity="right"
                     android:padding="10dp"
-                    android:text="100km" />
+                    android:text="Tu ubicación no se estableció" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

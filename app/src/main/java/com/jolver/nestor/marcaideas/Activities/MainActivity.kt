@@ -70,6 +70,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
         editor.putString("lat",location!!.latitude.toString())
         editor.putString("lon",location!!.longitude.toString())
         editor.apply()
+//        toast("latitud: ${location.latitude} longitud: ${location.longitude}")
     }
 
 
@@ -94,6 +95,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                 .setFallBackToLastLocationTime(3000)
                 .build()
         requestLocationUpdates(easyLocationRequest);
+
 
 
     }
@@ -309,7 +311,9 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                 .withPermissions(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CALL_PHONE
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
                 ).withListener(object : MultiplePermissionsListener {
             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                 report?.let {
@@ -320,6 +324,10 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                             Manifest.permission.ACCESS_FINE_LOCATION -> {
                             }
                             Manifest.permission.CALL_PHONE -> {
+                            }
+                            Manifest.permission.ACCESS_COARSE_LOCATION -> {
+                            }
+                            Manifest.permission.ACCESS_FINE_LOCATION -> {
                             }
                         }
                     }
@@ -340,6 +348,20 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                                 }
                             }
                             Manifest.permission.CALL_PHONE -> {
+                                if (permission.isPermanentlyDenied) {
+                                    toast("Se denego el acceso")
+                                } else {
+                                    toast("Se denego el acceso")
+                                }
+                            }
+                            Manifest.permission.ACCESS_COARSE_LOCATION -> {
+                                if (permission.isPermanentlyDenied) {
+                                    toast("Se denego el acceso")
+                                } else {
+                                    toast("Se denego el acceso")
+                                }
+                            }
+                            Manifest.permission.ACCESS_FINE_LOCATION -> {
                                 if (permission.isPermanentlyDenied) {
                                     toast("Se denego el acceso")
                                 } else {
