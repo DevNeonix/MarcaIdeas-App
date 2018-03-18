@@ -8,6 +8,7 @@ import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
@@ -22,6 +23,7 @@ import com.akhgupta.easylocation.EasyLocationAppCompatActivity
 import com.akhgupta.easylocation.EasyLocationRequest
 import com.akhgupta.easylocation.EasyLocationRequestBuilder
 import com.google.android.gms.location.LocationRequest
+import com.jolver.nestor.marcaideas.Fragments.EventFragment
 import com.jolver.nestor.marcaideas.Fragments.OfertasFragment
 import com.jolver.nestor.marcaideas.Fragments.PerfilFragment
 import com.jolver.nestor.marcaideas.Fragments.ServiciosFragment
@@ -48,35 +50,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    override fun onLocationProviderDisabled() {
-
-    }
-
-    override fun onLocationPermissionGranted() {
-
-    }
-
-    override fun onLocationProviderEnabled() {
-
-    }
-
-    override fun onLocationPermissionDenied() {
-
-    }
-
-    override fun onLocationReceived(location: Location?) {
-        var editor=getSharedPreferences("marcaideas", Context.MODE_PRIVATE).edit();
-        editor.putString("lat",location!!.latitude.toString())
-        editor.putString("lon",location!!.longitude.toString())
-        editor.apply()
-//        toast("latitud: ${location.latitude} longitud: ${location.longitude}")
-    }
+class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
 
     var toolbar: Toolbar? = null
     var mDrawer: FlowingDrawer? = null
     var navView: NavigationView? = null
+    var tabs: TabLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -97,7 +77,6 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
         requestLocationUpdates(easyLocationRequest);
 
 
-
     }
 
     private fun binding() {
@@ -105,6 +84,16 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
         toolbar = findViewById(R.id.toolbar)
         mDrawer = findViewById(R.id.drawerlayout)
         navView = findViewById(R.id.navView)
+        tabs = findViewById(R.id.tabs_main)
+
+        tabs!!.addTab(tabs!!.newTab().setIcon(R.drawable.ic_category))
+        tabs!!.addTab(tabs!!.newTab().setIcon(R.drawable.ic_tags1))
+        tabs!!.addTab(tabs!!.newTab().setIcon(R.drawable.ic_event))
+
+        tabs!!.addOnTabSelectedListener(this)
+
+
+
 
         mDrawer!!.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL)
         mDrawer!!.setOnDrawerStateChangeListener(object : ElasticDrawer.OnDrawerStateChangeListener {
@@ -142,17 +131,29 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
         var fragmentTransaction = false
         var fragment: Fragment? = null
         when (item.itemId) {
+            R.id.mServicios -> {
+                var tab:TabLayout.Tab= tabs!!.getTabAt(0)!!
+                tab.select()
+
+                fragmentTransaction = true
+                fragment = ServiciosFragment()
+            }
             R.id.mOfertas -> {
+                var tab:TabLayout.Tab= tabs!!.getTabAt(1)!!
+                tab.select()
+
                 fragmentTransaction = true
                 fragment = OfertasFragment()
+            }
+            R.id.mEventos -> {
+                var tab:TabLayout.Tab= tabs!!.getTabAt(2)!!
+                tab.select()
+                fragmentTransaction = true
+                fragment = EventFragment()
             }
             R.id.mPerfil -> {
                 fragmentTransaction = true
                 fragment = PerfilFragment()
-            }
-            R.id.mServicios -> {
-                fragmentTransaction = true
-                fragment = ServiciosFragment()
             }
             R.id.mRegistro -> {
                 val dialog_registro = CreateCustomDialog(this@MainActivity, R.layout.dialog_registro)
@@ -276,7 +277,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
             navView!!.getMenu().findItem(R.id.mPerfil).setVisible(false)
             navView!!.getMenu().findItem(R.id.mLogin).setVisible(true)
             navView!!.getMenu().findItem(R.id.mRegistro).setVisible(true)
-            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(false)
+//            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(false)
 
         } else {
 
@@ -284,15 +285,15 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
             navView!!.getMenu().findItem(R.id.mPerfil).setVisible(true)
             navView!!.getMenu().findItem(R.id.mLogin).setVisible(false)
             navView!!.getMenu().findItem(R.id.mRegistro).setVisible(false)
-            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(true)
+//            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(true)
         }
     }
 
     private fun setFragmentByDefault() {
-        changeFragment(ServiciosFragment(), navView!!.menu.getItem(1))
+        changeFragment(ServiciosFragment(), navView!!.menu.getItem(0))
     }
 
-    private fun changeFragment(fragment: Fragment, item: MenuItem) {
+    private fun changeFragment(fragment: Fragment, item: MenuItem = navView!!.menu.getItem(1)) {
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment)
@@ -315,68 +316,68 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION
                 ).withListener(object : MultiplePermissionsListener {
-            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                report?.let {
-                    for (permission in report.grantedPermissionResponses) {
-                        when (permission.permissionName) {
-                            Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                        report?.let {
+                            for (permission in report.grantedPermissionResponses) {
+                                when (permission.permissionName) {
+                                    Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                                    }
+                                    Manifest.permission.ACCESS_FINE_LOCATION -> {
+                                    }
+                                    Manifest.permission.CALL_PHONE -> {
+                                    }
+                                    Manifest.permission.ACCESS_COARSE_LOCATION -> {
+                                    }
+                                    Manifest.permission.ACCESS_FINE_LOCATION -> {
+                                    }
+                                }
                             }
-                            Manifest.permission.ACCESS_FINE_LOCATION -> {
-                            }
-                            Manifest.permission.CALL_PHONE -> {
-                            }
-                            Manifest.permission.ACCESS_COARSE_LOCATION -> {
-                            }
-                            Manifest.permission.ACCESS_FINE_LOCATION -> {
+                            for (permission in report.deniedPermissionResponses) {
+                                when (permission.permissionName) {
+                                    Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                                        if (permission.isPermanentlyDenied) {
+                                            toast("Se denego el acceso")
+                                        } else {
+                                            toast("Se denego el acceso")
+                                        }
+                                    }
+                                    Manifest.permission.ACCESS_FINE_LOCATION -> {
+                                        if (permission.isPermanentlyDenied) {
+                                            toast("Se denego el acceso")
+                                        } else {
+                                            toast("Se denego el acceso")
+                                        }
+                                    }
+                                    Manifest.permission.CALL_PHONE -> {
+                                        if (permission.isPermanentlyDenied) {
+                                            toast("Se denego el acceso")
+                                        } else {
+                                            toast("Se denego el acceso")
+                                        }
+                                    }
+                                    Manifest.permission.ACCESS_COARSE_LOCATION -> {
+                                        if (permission.isPermanentlyDenied) {
+                                            toast("Se denego el acceso")
+                                        } else {
+                                            toast("Se denego el acceso")
+                                        }
+                                    }
+                                    Manifest.permission.ACCESS_FINE_LOCATION -> {
+                                        if (permission.isPermanentlyDenied) {
+                                            toast("Se denego el acceso")
+                                        } else {
+                                            toast("Se denego el acceso")
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                    for (permission in report.deniedPermissionResponses) {
-                        when (permission.permissionName) {
-                            Manifest.permission.READ_EXTERNAL_STORAGE -> {
-                                if (permission.isPermanentlyDenied) {
-                                    toast("Se denego el acceso")
-                                } else {
-                                    toast("Se denego el acceso")
-                                }
-                            }
-                            Manifest.permission.ACCESS_FINE_LOCATION -> {
-                                if (permission.isPermanentlyDenied) {
-                                    toast("Se denego el acceso")
-                                } else {
-                                    toast("Se denego el acceso")
-                                }
-                            }
-                            Manifest.permission.CALL_PHONE -> {
-                                if (permission.isPermanentlyDenied) {
-                                    toast("Se denego el acceso")
-                                } else {
-                                    toast("Se denego el acceso")
-                                }
-                            }
-                            Manifest.permission.ACCESS_COARSE_LOCATION -> {
-                                if (permission.isPermanentlyDenied) {
-                                    toast("Se denego el acceso")
-                                } else {
-                                    toast("Se denego el acceso")
-                                }
-                            }
-                            Manifest.permission.ACCESS_FINE_LOCATION -> {
-                                if (permission.isPermanentlyDenied) {
-                                    toast("Se denego el acceso")
-                                } else {
-                                    toast("Se denego el acceso")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
 
-            override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
-                token?.continuePermissionRequest()
-            }
-        }).check()
+                    override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
+                        token?.continuePermissionRequest()
+                    }
+                }).check()
     }
 
     private var backPressedTime: Long = 0    // used by onBackPressed()
@@ -391,4 +392,56 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
             super.onBackPressed()       // bye
         }
     }
+
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        var position:Int = tab!!.position;
+        when(position){
+            0->{
+                changeFragment(ServiciosFragment(), navView!!.menu.getItem(0))
+
+            }
+            1->{
+                changeFragment(OfertasFragment(), navView!!.menu.getItem(1))
+
+            }
+            2->{
+                changeFragment(EventFragment(), navView!!.menu.getItem(2))
+
+            }
+        }
+    }
+
+    override fun onLocationProviderDisabled() {
+
+    }
+
+    override fun onLocationPermissionGranted() {
+
+    }
+
+    override fun onLocationProviderEnabled() {
+
+    }
+
+    override fun onLocationPermissionDenied() {
+
+    }
+
+    override fun onLocationReceived(location: Location?) {
+        var editor = getSharedPreferences("marcaideas", Context.MODE_PRIVATE).edit();
+        editor.putString("lat", location!!.latitude.toString())
+        editor.putString("lon", location!!.longitude.toString())
+        editor.apply()
+//        toast("latitud: ${location.latitude} longitud: ${location.longitude}")
+    }
+
 }

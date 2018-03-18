@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridView
+import android.widget.Toast
 import com.jolver.nestor.marcaideas.Activities.CategoriaActivity
 import com.jolver.nestor.marcaideas.Adapters.GrupoAdapter
 import com.jolver.nestor.marcaideas.Models.Grupo
@@ -78,19 +79,21 @@ class ServiciosFragment : Fragment() {
                 for(i in response.body()!!){
                     items.add(i)
                 }
-                adapter= GrupoAdapter(R.layout.item_grupo,context,items,object:GrupoAdapter.OnClick{
-                    override fun click(id: String) {
-                        val intent = Intent(context, CategoriaActivity::class.java)
-                        context.getSharedPreferences("marcaideas",Context.MODE_PRIVATE).edit().putString("id_grupo",id).apply()
-                        startActivity(intent)
-                    }
-                })
+                if(context != null){
+                    adapter= GrupoAdapter(R.layout.item_grupo,context,items,object:GrupoAdapter.OnClick{
+                        override fun click(id: String) {
+                            val intent = Intent(context, CategoriaActivity::class.java)
+                            context.getSharedPreferences("marcaideas",Context.MODE_PRIVATE).edit().putString("id_grupo",id).apply()
+                            startActivity(intent)
+                        }
+                    })
 
-                gv_grupo!!.adapter=adapter
+                    gv_grupo!!.adapter=adapter
+                }
+
             }
 
             override fun onFailure(call: Call<List<Grupo>>?, t: Throwable?) {
-                context.toast("No se pudo establecer conexion con el servidor.")
                 gv_grupo!!.visibility=View.GONE
                 cProgress!!.visibility=View.GONE
                 cErrorConnection!!.visibility=View.VISIBLE

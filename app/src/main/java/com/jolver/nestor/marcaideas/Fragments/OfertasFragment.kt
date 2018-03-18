@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import com.jolver.nestor.marcaideas.Adapters.OfertaAdapters
 import com.jolver.nestor.marcaideas.Models.Oferta
 
@@ -62,7 +63,7 @@ class OfertasFragment : Fragment() {
                 lv_ofertas!!.visibility=View.GONE
                 cProgress!!.visibility=View.GONE
                 cErrorConnection!!.visibility=View.VISIBLE
-                context.toast()
+
             }
 
             override fun onResponse(call: Call<List<Oferta>>?, response: Response<List<Oferta>>?) {
@@ -73,12 +74,14 @@ class OfertasFragment : Fragment() {
                 for(i in response!!.body()!!){
                     items.add(i)
                 }
-                var adapter=OfertaAdapters(items,context,R.layout.item_oferta,object:OfertaAdapters.OnClick{
-                    override fun Listener(oferta: Oferta) {
+                if(context != null){
+                    var adapter=OfertaAdapters(items,context,R.layout.item_oferta,object:OfertaAdapters.OnClick{
+                        override fun Listener(oferta: Oferta) {
 
-                    }
-                })
-                lv_ofertas!!.adapter=adapter
+                        }
+                    })
+                    lv_ofertas!!.adapter=adapter
+                }
             }
         })
 

@@ -77,7 +77,7 @@ public class LugarAdapter extends BaseAdapter {
 
         String lat = context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("lat", "");
         String lon = context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("lon", "");
-        Toast.makeText(context,lat+"-"+lon,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context,lat+"-"+lon,Toast.LENGTH_SHORT).show();
         if(lat.equals("") && lon.equals("")){
 
         }else{
@@ -91,7 +91,7 @@ public class LugarAdapter extends BaseAdapter {
 
             double distanceInMeters = loc2.distanceTo(loc1)/1000;
             tvlongitud.setText(String.format("%.2f",distanceInMeters)+" km");
-            Toast.makeText(context,distanceInMeters+"",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,distanceInMeters+"",Toast.LENGTH_SHORT).show();
         }
         tvdireccion.setText(lugar.getDireccion()+"-"+lugar.getUbicacion());
 

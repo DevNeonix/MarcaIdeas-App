@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/iv_event_item"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_nombre_event_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#333"
+                android:text="Nombre Evento"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_descripcion_event_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#777"
+                android:text="descripcion del evento"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_fecha_event_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#777"
+                android:textAlignment="textEnd"
+                android:text="02-02-1992 a 03-02-1992"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_ubicacion__event_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#777"
+                android:text="ubicacion"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView_event"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+</LinearLayout>

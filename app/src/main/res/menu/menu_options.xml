@@ -2,17 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/mServicios"
+            android:icon="@drawable/ic_category"
+            android:title="Servicios" />
+        <item
             android:id="@+id/mOfertas"
             android:icon="@drawable/ic_tags1"
             android:title="Ofertas" />
         <item
-            android:id="@+id/mServicios"
-            android:icon="@drawable/ic_category"
-            android:title="Servicios" />
+            android:id="@+id/mEventos"
+            android:icon="@drawable/ic_event"
+            android:title="Eventos" />
     </group>
     <item android:title="More...">
         <menu>
-            <group android:checkableBehavior="single">
+            <group android:checkableBehavior="none">
                 <item
                     android:id="@+id/mPerfil"
                     android:icon="@drawable/ic_person"
