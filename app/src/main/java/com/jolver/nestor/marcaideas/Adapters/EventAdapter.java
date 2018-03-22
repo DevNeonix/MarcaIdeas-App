@@ -1,6 +1,7 @@
 package com.jolver.nestor.marcaideas.Adapters;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,11 @@ public class EventAdapter extends BaseAdapter {
     int layout;
     Context context;
     List<Event> listado;
-    OnLoadMap onLoadMap;
 
-    public EventAdapter(int layout, Context context, List<Event> listado, OnLoadMap onLoadMap) {
+    public EventAdapter(int layout, Context context, List<Event> listado) {
         this.layout = layout;
         this.context = context;
         this.listado = listado;
-        this.onLoadMap = onLoadMap;
     }
 
     @Override
@@ -58,22 +57,39 @@ public class EventAdapter extends BaseAdapter {
 
         Event evento = listado.get(i);
 
-        MapView mMapView = view.findViewById(R.id.mapView_event);
         ImageView img = view.findViewById(R.id.iv_event_item);
         TextView tvnombre = view.findViewById(R.id.tv_nombre_event_item);
         TextView tvdescripcion = view.findViewById(R.id.tv_descripcion_event_item);
         TextView tvfecha = view.findViewById(R.id.tv_fecha_event_item);
         TextView tvubicacion = view.findViewById(R.id.tv_ubicacion__event_item);
+        TextView tvdistancia = view.findViewById(R.id.tv_distancia_event_item);
 
 
-        Picasso.with(context).load(evento.getImageUrl()).placeholder(R.drawable.logo).into(img);
+        tvnombre.setText(evento.getNombre());
+        tvdescripcion.setText(evento.getDescripcion());
+        tvfecha.setText(evento.getFecha_inicio() + " - " + evento.getFecha_fin());
+        tvubicacion.setText(evento.getUbicacion());
+        Picasso.with(context).load(evento.getImage_url()).placeholder(R.drawable.logo).into(img);
 
-        onLoadMap.onMap(mMapView,evento.getLat(),evento.getLon());
+        String lat = context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("lat", "");
+        String lon = context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("lon", "");
+        if (lat.equals("") && lon.equals("")) {
+            tvdistancia.setText("ubicación no encontrada");
+        } else {
+            Location loc1 = new Location("");
+            loc1.setLatitude(evento.getLat());
+            loc1.setLongitude(evento.getLon());
+
+            Location loc2 = new Location("");
+            loc2.setLatitude(Double.parseDouble(lat));
+            loc2.setLongitude(Double.parseDouble(lon));
+
+            double distanceInMeters = loc2.distanceTo(loc1) / 1000;
+            tvdistancia.setText(String.format("%.2f",distanceInMeters)+" km");
+
+        }
 
         return view;
     }
 
-    public interface OnLoadMap {
-        void onMap(MapView map,Double lat,Double lon);
-    }
 }

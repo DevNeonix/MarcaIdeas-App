@@ -13,5 +13,4 @@ import retrofit2.http.Path;
 public interface EventService {
     @GET("eventos")
     Call<List<Event>> listado();
-
 }

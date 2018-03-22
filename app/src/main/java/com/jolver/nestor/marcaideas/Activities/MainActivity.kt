@@ -3,6 +3,7 @@ package com.jolver.nestor.marcaideas.Activities
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
@@ -121,7 +122,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                mDrawer!!.openMenu()
+                mDrawer!!.toggleMenu()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -151,10 +152,13 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
                 fragmentTransaction = true
                 fragment = EventFragment()
             }
-            R.id.mPerfil -> {
-                fragmentTransaction = true
-                fragment = PerfilFragment()
+            R.id.mInformacion -> {
+                startActivity(Intent(this@MainActivity,ContactActivity::class.java));
             }
+//            R.id.mPerfil -> {
+//                fragmentTransaction = true
+//                fragment = PerfilFragment()
+//            }
             R.id.mRegistro -> {
                 val dialog_registro = CreateCustomDialog(this@MainActivity, R.layout.dialog_registro)
 
@@ -274,7 +278,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
     private fun CambiarMenu() {
         if (getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("id", "") == "") {
             navView!!.getMenu().findItem(R.id.mCerrarSesion).setVisible(false)
-            navView!!.getMenu().findItem(R.id.mPerfil).setVisible(false)
+//            navView!!.getMenu().findItem(R.id.mPerfil).setVisible(false)
             navView!!.getMenu().findItem(R.id.mLogin).setVisible(true)
             navView!!.getMenu().findItem(R.id.mRegistro).setVisible(true)
 //            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(false)
@@ -282,7 +286,7 @@ class MainActivity : EasyLocationAppCompatActivity(), NavigationView.OnNavigatio
         } else {
 
             navView!!.getMenu().findItem(R.id.mCerrarSesion).setVisible(true)
-            navView!!.getMenu().findItem(R.id.mPerfil).setVisible(true)
+//            navView!!.getMenu().findItem(R.id.mPerfil).setVisible(true)
             navView!!.getMenu().findItem(R.id.mLogin).setVisible(false)
             navView!!.getMenu().findItem(R.id.mRegistro).setVisible(false)
 //            navView!!.getMenu().findItem(R.id.mOfertas).setVisible(true)

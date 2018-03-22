@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.jolver.nestor.marcaideas.Fragments.ContactoLugarFragment;
 import com.jolver.nestor.marcaideas.Fragments.InformacionLugarFragment;
 import com.jolver.nestor.marcaideas.Fragments.LocationLugarFragment;
+import com.jolver.nestor.marcaideas.Fragments.OfertasLugarFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -28,6 +29,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new ContactoLugarFragment();
             case 2:
+                return new OfertasLugarFragment();
+            case 3:
                 return new LocationLugarFragment();
             default:
                 return null;

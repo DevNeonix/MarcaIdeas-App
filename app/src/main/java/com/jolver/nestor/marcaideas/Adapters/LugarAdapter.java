@@ -79,7 +79,7 @@ public class LugarAdapter extends BaseAdapter {
         String lon = context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).getString("lon", "");
 //        Toast.makeText(context,lat+"-"+lon,Toast.LENGTH_SHORT).show();
         if(lat.equals("") && lon.equals("")){
-
+            tvlongitud.setText("ubicación no encontrada");
         }else{
             Location loc1 = new Location("");
             loc1.setLatitude(lugar.getLat());

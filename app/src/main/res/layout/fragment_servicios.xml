@@ -5,17 +5,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.jolver.nestor.marcaideas.Fragments.ServiciosFragment">
 
-    <GridView
-        android:layout_margin="10dp"
-        android:id="@+id/gv_grupo"
-        android:numColumns="auto_fit"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stretchMode="columnWidth">
+        android:orientation="vertical">
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/svServicios"
+            android:background="@color/colorPrimary"/>
+        <GridView
+            android:layout_margin="10dp"
+            android:id="@+id/gv_grupo"
+            android:numColumns="auto_fit"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchMode="columnWidth">
 
-    </GridView>
+        </GridView>
+    </LinearLayout>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fs_CLProgressBar"
         android:layout_width="match_parent"

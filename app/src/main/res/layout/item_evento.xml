@@ -11,12 +11,13 @@
         <ImageView
             android:id="@+id/iv_event_item"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp">
             <TextView
                 android:id="@+id/tv_nombre_event_item"
                 android:layout_width="match_parent"
@@ -46,10 +47,15 @@
                 android:textColor="#777"
                 android:text="ubicacion"
                 android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_distancia_event_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_light"
+                android:text="ubicacion"
+                android:textAlignment="textEnd"
+                android:drawableRight="@drawable/ic_map"
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView_event"
-        android:layout_width="match_parent"
-        android:layout_height="150dp" />
 </LinearLayout>

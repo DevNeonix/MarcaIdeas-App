@@ -41,6 +41,7 @@ class DetalleLugarActivity : AppCompatActivity() {
         var tablayout: TabLayout = findViewById(R.id.tabLayout)
         tablayout.addTab(tablayout.newTab().setIcon(R.drawable.ic_info))
         tablayout.addTab(tablayout.newTab().setIcon(R.drawable.ic_phone))
+        tablayout.addTab(tablayout.newTab().setIcon(R.drawable.ic_tags1))
         tablayout.addTab(tablayout.newTab().setIcon(R.drawable.ic_map_white))
 
 

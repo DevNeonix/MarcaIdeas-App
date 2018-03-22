@@ -11,7 +11,7 @@
         android:id="@+id/ac_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
+        android:background="@color/colorPrimary"
         app:title="Categorias"
         app:titleTextColor="#fff" />
     <FrameLayout
@@ -27,7 +27,7 @@
                 android:id="@+id/sV_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient" />
+                android:background="@color/colorPrimary" />
 
             <ListView
                 android:id="@+id/lv_categoria"
