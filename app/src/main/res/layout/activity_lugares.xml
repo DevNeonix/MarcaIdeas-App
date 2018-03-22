@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/svLugares"
+        android:visibility="gone"
         android:background="@color/colorPrimary"/>
     <ListView
         android:id="@+id/lv_lugares"

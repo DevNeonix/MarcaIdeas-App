@@ -13,4 +13,6 @@ import retrofit2.http.Path;
 public interface OfertaService {
     @GET("ofertas")
     Call<List<Oferta>> listado();
+    @GET("ofertas/{id}")
+    Call<List<Oferta>> filtrado(@Path("id") String id);
 }

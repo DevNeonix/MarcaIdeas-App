@@ -105,17 +105,24 @@ class ServiciosFragment : Fragment() {
         cErrorConnection!!.visibility = View.GONE
         val services: GrupoService = retrofit!!.create(GrupoService::class.java)
         services.listadoGrupo().enqueue(object : Callback<List<Grupo>> {
-            override fun onResponse(call: Call<List<Grupo>>?, response: Response<List<Grupo>>) {
+            override fun onResponse(call: Call<List<Grupo>>?, response: Response<List<Grupo>>?) {
 
-                gv_grupo!!.visibility = View.VISIBLE
-                cProgress!!.visibility = View.GONE
-                cErrorConnection!!.visibility = View.GONE
-                for (i in response.body()!!) {
-                    items.add(i)
-                }
-                list = items;
-                saveList = items;
-                Myadapter(items)
+
+                    gv_grupo!!.visibility = View.VISIBLE
+                    cProgress!!.visibility = View.GONE
+                    cErrorConnection!!.visibility = View.GONE
+
+                    if(response!!.code() == 200){
+                        for (i in response.body()!!) {
+                            items.add(i)
+                        }
+                        list = items
+                        saveList = items
+                        Myadapter(items)
+                    }
+
+
+
 
             }
 

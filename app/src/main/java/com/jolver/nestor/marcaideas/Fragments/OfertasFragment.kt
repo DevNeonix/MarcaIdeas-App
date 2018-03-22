@@ -27,15 +27,15 @@ import retrofit2.Retrofit
  * A simple [Fragment] subclass.
  */
 class OfertasFragment : Fragment() {
-    var rootView:View?=null
-    var cProgress: ConstraintLayout?=null
-    var cErrorConnection: ConstraintLayout?=null
-    var btnreload: Button?=null
-    var lv_ofertas: ListView?=null
-    var retrofit:Retrofit?=null
+    var rootView: View? = null
+    var cProgress: ConstraintLayout? = null
+    var cErrorConnection: ConstraintLayout? = null
+    var btnreload: Button? = null
+    var lv_ofertas: ListView? = null
+    var retrofit: Retrofit? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        rootView=inflater!!.inflate(R.layout.fragment_ofertas, container, false)
+        rootView = inflater!!.inflate(R.layout.fragment_ofertas, container, false)
 
 
         return rootView!!
@@ -44,43 +44,45 @@ class OfertasFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lv_ofertas=rootView!!.findViewById(R.id.lv_ofertas)
-        cProgress=rootView!!.findViewById(R.id.fo_CLProgressBar)
-        cErrorConnection=rootView!!.findViewById(R.id.fo_CLErrorConnection)
-        btnreload=rootView!!.findViewById(R.id.btnreload)
-        retrofit= myRetrofit
+        lv_ofertas = rootView!!.findViewById(R.id.lv_ofertas)
+        cProgress = rootView!!.findViewById(R.id.fo_CLProgressBar)
+        cErrorConnection = rootView!!.findViewById(R.id.fo_CLErrorConnection)
+        btnreload = rootView!!.findViewById(R.id.btnreload)
+        retrofit = myRetrofit
 
         servicio()
 
     }
 
     private fun servicio() {
-        lv_ofertas!!.visibility=View.GONE
-        cProgress!!.visibility=View.VISIBLE
-        cErrorConnection!!.visibility=View.GONE
-        retrofit!!.create(OfertaService::class.java).listado().enqueue(object :Callback<List<Oferta>>{
+        lv_ofertas!!.visibility = View.GONE
+        cProgress!!.visibility = View.VISIBLE
+        cErrorConnection!!.visibility = View.GONE
+        retrofit!!.create(OfertaService::class.java).listado().enqueue(object : Callback<List<Oferta>> {
             override fun onFailure(call: Call<List<Oferta>>?, t: Throwable?) {
-                lv_ofertas!!.visibility=View.GONE
-                cProgress!!.visibility=View.GONE
-                cErrorConnection!!.visibility=View.VISIBLE
+                lv_ofertas!!.visibility = View.GONE
+                cProgress!!.visibility = View.GONE
+                cErrorConnection!!.visibility = View.VISIBLE
 
             }
 
             override fun onResponse(call: Call<List<Oferta>>?, response: Response<List<Oferta>>?) {
-                lv_ofertas!!.visibility=View.VISIBLE
-                cProgress!!.visibility=View.GONE
-                cErrorConnection!!.visibility=View.GONE
-                var items=ArrayList<Oferta>()
-                for(i in response!!.body()!!){
-                    items.add(i)
-                }
-                if(context != null){
-                    var adapter=OfertaAdapters(items,context,R.layout.item_oferta,object:OfertaAdapters.OnClick{
-                        override fun Listener(oferta: Oferta) {
+                lv_ofertas!!.visibility = View.VISIBLE
+                cProgress!!.visibility = View.GONE
+                cErrorConnection!!.visibility = View.GONE
+                if (response!!.code() == 200) {
+                    var items = ArrayList<Oferta>()
+                    for (i in response!!.body()!!) {
+                        items.add(i)
+                    }
+                    if (context != null) {
+                        var adapter = OfertaAdapters(items, context, R.layout.item_oferta, object : OfertaAdapters.OnClick {
+                            override fun Listener(oferta: Oferta) {
 
-                        }
-                    })
-                    lv_ofertas!!.adapter=adapter
+                            }
+                        })
+                        lv_ofertas!!.adapter = adapter
+                    }
                 }
             }
         })

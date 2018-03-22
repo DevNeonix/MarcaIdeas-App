@@ -42,18 +42,19 @@ class EventFragment : Fragment() {
 
 
 
-            retrofit!!.create(EventService::class.java).listado().enqueue(object: Callback<List<Event>>{
+            retrofit!!.create(EventService::class.java).listado().enqueue(object : Callback<List<Event>> {
                 override fun onFailure(call: Call<List<Event>>?, t: Throwable?) {
-                    Log.e("EVENTOS",t.toString())
+                    Log.e("EVENTOS", t.toString())
                 }
 
                 override fun onResponse(call: Call<List<Event>>?, response: Response<List<Event>>?) {
-                    adapter = EventAdapter(R.layout.item_evento,context,response!!.body()!!)
-                    lvEventos!!.adapter=adapter
+                    if (response!!.code() == 200) {
+                        adapter = EventAdapter(R.layout.item_evento, context, response?.body())
+                        lvEventos!!.adapter = adapter
+                    }
                 }
 
             })
-
 
 
         }

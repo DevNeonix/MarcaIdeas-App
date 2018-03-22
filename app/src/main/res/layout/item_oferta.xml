@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/ig_iv"
+            android:id="@+id/item_oferta_iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="#222" />
