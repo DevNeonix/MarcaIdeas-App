@@ -3,6 +3,7 @@ package com.jolver.nestor.marcaideas.Fragments
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.location.Address
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,13 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.jolver.nestor.marcaideas.R
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Geocoder
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import java.util.*
 import java.io.IOException
 import com.google.android.gms.maps.GoogleMap
@@ -25,10 +21,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.MapsInitializer
-
-
-
-
+import com.google.android.gms.maps.model.*
 
 
 /**
@@ -68,11 +61,24 @@ class LocationLugarFragment : Fragment() {
             var lat=preferences!!.getString("lugar_lat","")
             var lon=preferences!!.getString("lugar_lon","")
 
-            val sydney = LatLng(lat.toDouble(), lon.toDouble())
-            googleMap!!.addMarker(MarkerOptions().position(sydney).title(preferences!!.getString("lugar_razon_social","")))
+            var mlat=preferences!!.getString("lat","")
+            var mlon=preferences!!.getString("lon","")
+
+            val lugar = LatLng(lat.toDouble(), lon.toDouble())
+            val me = LatLng(mlat.toDouble(), mlon.toDouble())
+
+            val iconLugar = BitmapDescriptorFactory.fromResource(R.drawable.ic_lugar)
+            val iconMe = BitmapDescriptorFactory.fromResource(R.drawable.ic_me)
 
 
-            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(12f).build()
+            googleMap!!.addMarker(MarkerOptions().position(lugar).title(preferences!!.getString("lugar_razon_social","")).icon(iconLugar))
+            googleMap!!.addMarker(MarkerOptions().position(me).title("Yo").icon(iconMe))
+            googleMap!!.addPolyline(PolylineOptions()
+                    .add(me, lugar )
+                    .width("8".toFloat())
+                    .color(Color.DKGRAY));
+
+            val cameraPosition = CameraPosition.Builder().target(lugar).zoom(12f).build()
             googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         })
 
