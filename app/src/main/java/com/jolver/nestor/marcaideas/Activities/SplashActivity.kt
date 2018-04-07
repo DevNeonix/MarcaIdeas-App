@@ -17,8 +17,8 @@ class SplashActivity : AppCompatActivity() {
                 .withFullScreen()
                 .withTargetActivity(MainActivity::class.java)
                 .withSplashTimeOut(4000)
-                .withBackgroundResource(R.color.colorApplication)
-                .withLogo(R.drawable.logo)
+                .withBackgroundResource(R.color.colorPrimary)
+                .withLogo(R.mipmap.ic_logo)
 
         val easySplashScreenView = config.create()
         setContentView(easySplashScreenView)

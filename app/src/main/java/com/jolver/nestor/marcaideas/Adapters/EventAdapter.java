@@ -66,7 +66,11 @@ public class EventAdapter extends BaseAdapter {
 
 
         tvnombre.setText(evento.getNombre());
-        tvdescripcion.setText(evento.getDescripcion());
+        if(evento.getDescripcion().length()>50){
+            tvdescripcion.setText(evento.getDescripcion().substring(0,50)+"...");
+        }else{
+            tvdescripcion.setText(evento.getDescripcion());
+        }
         tvfecha.setText(evento.getFecha_inicio() + " - " + evento.getFecha_fin());
         tvubicacion.setText(evento.getUbicacion());
         Picasso.with(context).load(evento.getImage_url()).placeholder(R.drawable.logo).into(img);

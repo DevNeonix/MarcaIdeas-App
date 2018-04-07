@@ -72,7 +72,7 @@ class GrupoAdapter(//obtengo el layout q voy a usar
                 .into(vh.img)
 
 
-        vh.cd!!.setOnClickListener { myonClick.click(grupo_item.id.toString() + "") }
+        vh.cd!!.setOnClickListener { myonClick.click(grupo_item) }
 
 
 
@@ -86,7 +86,7 @@ class GrupoAdapter(//obtengo el layout q voy a usar
 
 
     interface OnClick {
-        fun click(id: String)
+        fun click(grupo: Grupo)
     }
 }
 

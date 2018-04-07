@@ -7,28 +7,31 @@
     android:orientation="vertical"
     tools:context=".Activities.CategoriaActivity">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/ac_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        app:title="Categorias"
-        app:titleTextColor="#fff" />
+        app:titleTextColor="#ffffff"
+        app:title="Categoria"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/ac_lllistado"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/sV_categoria"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary" />
+                android:background="@color/colorPrimary"
+                android:visibility="gone" />
 
             <ListView
                 android:id="@+id/lv_categoria"
@@ -38,6 +41,7 @@
                 android:divider="@android:color/transparent"
                 android:dividerHeight="10sp" />
         </LinearLayout>
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/ac_CLProgressBar"
             android:layout_width="match_parent"
@@ -55,6 +59,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/ac_CLErrorConnection"
             android:layout_width="match_parent"
@@ -78,9 +83,9 @@
                 android:id="@+id/btnreload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/gradient"
-                android:layout_margin="10dp"
                 android:text="Volver a cargar"
                 android:textColor="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"

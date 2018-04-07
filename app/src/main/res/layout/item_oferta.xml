@@ -9,7 +9,7 @@
     android:orientation="vertical"
     app:cardCornerRadius="10dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,66 +17,75 @@
         <ImageView
             android:id="@+id/item_oferta_iv"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:background="#222" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/il_llofertas"
+        <LinearLayout
+            android:id="@+id/il_llofertas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#550288D1"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/io_oferta_producto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient2"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:padding="10dp"
+                android:text="producto"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/io_oferta_producto"
-                    android:layout_width="match_parent"
+                    android:id="@+id/io_oferta_antes"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="producto"
+                    android:layout_weight="1"
+                    android:text="antes"
                     android:textColor="#fff"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/io_oferta_ahora"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:layout_weight="1"
+                    android:text="ahora"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/io_oferta_antes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="antes"
-                        android:textColor="#fff"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/io_oferta_ahora"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="ahora"
-                        android:textColor="#fff"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/io_oferta_porcentaje"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="descuento %"
-                        android:textColor="#fff"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/io_oferta_porcentaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="descuento %"
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/io_distancia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No has aceptado los permisos para ver la distancia."
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
 </android.support.v7.widget.CardView>

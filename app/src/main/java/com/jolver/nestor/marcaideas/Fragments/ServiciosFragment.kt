@@ -137,9 +137,12 @@ class ServiciosFragment : Fragment() {
     private fun Myadapter(items: ArrayList<Grupo>) {
         if (context != null) {
             adapter = GrupoAdapter(R.layout.item_grupo, context, items, object : GrupoAdapter.OnClick {
-                override fun click(id: String) {
+                override fun click(grupo: Grupo) {
                     val intent = Intent(context, CategoriaActivity::class.java)
-                    context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).edit().putString("id_grupo", id).apply()
+                    var edit=context.getSharedPreferences("marcaideas", Context.MODE_PRIVATE).edit();
+                    edit.putString("id_grupo", grupo.id.toString())
+                    edit.putString("nombre_grupo", grupo.nombre.toString())
+                    edit.apply()
                     startActivity(intent)
                 }
             })

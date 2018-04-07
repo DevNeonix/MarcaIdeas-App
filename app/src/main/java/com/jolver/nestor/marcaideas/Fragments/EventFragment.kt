@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import com.google.android.gms.maps.MapView
 import com.jolver.nestor.marcaideas.Adapters.EventAdapter
 import com.jolver.nestor.marcaideas.Models.Event
 

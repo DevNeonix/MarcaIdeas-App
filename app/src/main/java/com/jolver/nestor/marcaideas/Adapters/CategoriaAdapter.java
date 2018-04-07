@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,36 +56,25 @@ public class CategoriaAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        if(view == null){
+        if (view == null) {
             //inflo la vista con cada item de grupo que tenga en la colexion
-            view= LayoutInflater.from(context).inflate(layout,viewGroup,false);
+            view = LayoutInflater.from(context).inflate(layout, viewGroup, false);
         }
-        binding(view,listado.get(i));
+        binding(view, listado.get(i));
 
 
         return view;
     }
 
     private void binding(View view, final Categoria categoria_item) {
-        TextView tvnombre=view.findViewById(R.id.tv_categoria_nombre);
-        final RelativeLayout cd=view.findViewById(R.id.llitem_categoria);
+        TextView tvnombre = view.findViewById(R.id.tv_categoria_nombre);
+        final CardView cd = view.findViewById(R.id.llitem_categoria);
+        ImageView img = view.findViewById(R.id.iv_icategoria);
         tvnombre.setText(categoria_item.getNombre());
-        Picasso.with(context).load(categoria_item.getImage_url()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                cd.setBackground(new BitmapDrawable(context.getResources(), bitmap));
-            }
 
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
 
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
+        Picasso.with(context).load(categoria_item.getImage_url()).fit().centerCrop().placeholder(R.mipmap.ic_logo)
+                .into(img);
 
 
         cd.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +85,7 @@ public class CategoriaAdapter extends BaseAdapter {
         });
     }
 
-    public interface HicisteClick{
+    public interface HicisteClick {
         void MeDevuelveElId(Categoria categoria);
     }
 }
